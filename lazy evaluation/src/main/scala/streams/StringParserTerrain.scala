@@ -55,10 +55,9 @@ trait StringParserTerrain extends GameDef {
   def terrainFunction(levelVector: Vector[Vector[Char]]): Pos => Boolean =
     (pos: Pos) => {
       if(pos.row<0 || pos.col<0) false
-      else if(levelVector.length-1>=pos.row
+      else (levelVector.length-1>=pos.row
         && levelVector(pos.row).length-1>=pos.col
-        && levelVector(pos.row)(pos.col)!='-') true
-      else false
+        && levelVector(pos.row)(pos.col)!='-')
     }
 
   /**
@@ -73,8 +72,8 @@ trait StringParserTerrain extends GameDef {
     val posList = for{
       row <- 0 until levelVector.length
       if(levelVector(row).indexOf(c)> -1)
-    } yield new Pos(row,levelVector(row).indexOf(c))
-    if(posList.isEmpty) new Pos(-1,-1)
+    } yield Pos(row,levelVector(row).indexOf(c))
+    if(posList.isEmpty) Pos(-1,-1)
     else posList(0)
   }
 
